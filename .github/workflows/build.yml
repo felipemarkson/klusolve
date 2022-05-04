@@ -33,5 +33,4 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "klusolvex_FM_linux_x64.tar.gz"
-          bodyFile:
           token: ${{ secrets.GITHUB_TOKEN }}
