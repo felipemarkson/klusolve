@@ -28,7 +28,7 @@ jobs:
           command: c
           cwd: .
           files: |
-            ./klusolvex/*
+            ./klusolvex
           outPath: ./klusolvex_static_felipe_linux_x64.tar.gz
       - uses: ncipollo/release-action@v1
         with:
