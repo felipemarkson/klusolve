@@ -11,16 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: lukka/get-cmake@latest
-      - run: export KLU_AS_STATIC=TRUE 
-      - run: ls
-      - run: cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF
-      - run: cmake --build . --config Release
-      - run: ls
-      - run: mkdir -p klusolvex
-      - run: cp -r ./lib ./klusolvex
-      - run: cp -r ./include ./klusolvex
-      - run: cp -r ./LICENSE ./klusolvex
-      - run: cp -r ./README.md ./klusolvex
+      - name: Moving build to artifacts directory
+        run: |
+          sh .github/workflows/build.sh
       - name: Compress action step
         uses: a7ul/tar-action@v1.1.0
         id: compress
@@ -28,8 +21,8 @@ jobs:
           command: c
           cwd: .
           files: |
-            ./klusolvex
-          outPath: ./klusolvex_static_felipe_linux_x64.tar.gz
+            klusolvex
+          outPath: klusolvex_static_felipe_linux_x64.tar.gz
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "klusolvex_static_felipe_linux_x64.tar.gz"
