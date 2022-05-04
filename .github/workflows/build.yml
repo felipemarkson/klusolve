@@ -32,3 +32,6 @@ jobs:
         with:
           artifacts: "klusolvex_static_felipe_${{ matrix.os }}_x64.tar.gz"
           token: ${{ secrets.RELEASE }}
+          prerelease: true
+          generateReleaseNotes: true
+          name: "KLUSolvex Felipe's Version ${{ matrix.os }}"
