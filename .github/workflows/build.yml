@@ -15,7 +15,8 @@ jobs:
       - run: ls
       - run: cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF
       - run: cmake --build . --config Release
-      - run: mkdir klusolvex && cd klusolvex
+      - run: ls
+      - run: mkdir -p klusolvex && cd klusolvex
       - run: cp -r ../lib .
       - run: cp -r ../include .
       - run: cp -r ../LICENSE .
