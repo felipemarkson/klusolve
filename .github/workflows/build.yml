@@ -1,0 +1,37 @@
+name: Publish
+on:
+  push:
+    tags:
+      - "v*.*.*"
+jobs:
+  build-linux-64:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: lukka/get-cmake@latest
+      - run: export KLU_AS_STATIC=TRUE 
+      - run: mkdir build && cd build
+      - run: cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF ..
+      - run: cmake --build . --config Release
+      - run: cd .. && mkdir klusolvex && cd klusolvex
+      - run: cp -r ../lib .
+      - run: cp -r ../include .
+      - run: cp -r ../LICENSE .
+      - run: cp -r ../README.md .
+      - run: cd .. 
+      - name: Compress action step
+        uses: a7ul/tar-action@v1.1.0
+        id: compress
+        with:
+          command: c
+          cwd: .
+          files: |
+            ./klusolvex/*
+          outPath: ../klusolvex_static_felipemarkson_linux_x64.tar.gz
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "klusolvex_FM_linux_x64.tar.gz"
+          bodyFile:
+          token: ${{ secrets.GITHUB_TOKEN }}
