@@ -16,12 +16,11 @@ jobs:
       - run: cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF
       - run: cmake --build . --config Release
       - run: ls
-      - run: mkdir -p klusolvex && cd klusolvex
-      - run: cp -r ../lib .
-      - run: cp -r ../include .
-      - run: cp -r ../LICENSE .
-      - run: cp -r ../README.md .
-      - run: cd .. 
+      - run: mkdir -p klusolvex
+      - run: cp -r ./lib ./klusolvex
+      - run: cp -r ./include ./klusolvex
+      - run: cp -r ./LICENSE ./klusolvex
+      - run: cp -r ./README.md ./klusolvex
       - name: Compress action step
         uses: a7ul/tar-action@v1.1.0
         id: compress
