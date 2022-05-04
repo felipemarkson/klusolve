@@ -16,6 +16,7 @@ jobs:
       - uses: lukka/get-cmake@latest
       - name: setup python
         uses: actions/setup-python@v2
+      - name: Compiling
         run: |
           python .github/workflows/build.py
       - name: Compress action step
