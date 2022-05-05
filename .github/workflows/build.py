@@ -13,7 +13,7 @@ FOLDERS = [
 
 FOLDER = "klusolvex"
 
-os.environ['LD_LIBRARY_PATH'] = "TRUE"
+os.environ['KLU_AS_STATIC'] = "TRUE"
 os.system("cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF")
 os.system("cmake --build . --config Release")
 
