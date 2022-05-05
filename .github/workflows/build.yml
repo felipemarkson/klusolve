@@ -2,12 +2,13 @@ name: Builds
 
 on:
   push:
+    branches: [ master ]
 
 jobs:
-  build-linux-64:
+  build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
@@ -19,16 +20,7 @@ jobs:
       - name: Compiling
         run: |
           python .github/workflows/build.py
-      - name: Compress action step
-        uses: a7ul/tar-action@v1.1.0
-        id: compress
-        with:
-          command: c
-          cwd: .
-          files: |
-            klusolvex
-          outPath: klusolvex_static_felipe_${{ matrix.os }}_x64.tar.gz
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
-          path: klusolvex_static_felipe_${{ matrix.os }}_x64.tar.gz
+          name: builds
+          path: '${{ github.workspace }}/*.zip'
