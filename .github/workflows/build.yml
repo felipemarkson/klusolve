@@ -1,8 +1,8 @@
-name: Publish
+name: Builds
+
 on:
   push:
-    tags:
-    - '*'
+
 jobs:
   build-linux-64:
     strategy:
@@ -28,10 +28,7 @@ jobs:
           files: |
             klusolvex
           outPath: klusolvex_static_felipe_${{ matrix.os }}_x64.tar.gz
-      - uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v3
         with:
-          artifacts: "klusolvex_static_felipe_${{ matrix.os }}_x64.tar.gz"
-          token: ${{ secrets.RELEASE }}
-          prerelease: true
-          generateReleaseNotes: true
-          name: "KLUSolvex Felipe's Version ${{ matrix.os }}"
+          name: my-artifact
+          path: klusolvex_static_felipe_${{ matrix.os }}_x64.tar.gz
