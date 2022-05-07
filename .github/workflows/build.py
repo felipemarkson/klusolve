@@ -1,6 +1,11 @@
 import os
 import shutil
 import platform
+import sys
+
+MODE = sys.argv[1].strip()
+if MODE != "STATIC" and MODE != "SHARED":
+    raise Exception("Invalid mode: " + MODE)
 
 ITEMS = [
     "LICENSE",
@@ -15,7 +20,7 @@ FOLDERS = [
 FOLDER = "klusolvex"
 
 
-sys = platform.system()
+sys_name = platform.system()
 
 
 if os.path.exists(FOLDER):
@@ -25,7 +30,7 @@ if not os.path.exists('build'):
     os.makedirs('build')
 
 os.chdir("build")
-os.system("cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF -DKLUSOLVE_LIB_TYPE=STATIC ..")
+os.system(f"cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF -DKLUSOLVE_LIB_TYPE={MODE} ..")
 os.system("cmake --build . --config Release")
 os.chdir("..")
 
@@ -35,5 +40,5 @@ for folder in FOLDERS:
 for item in ITEMS:
     shutil.copyfile(item, os.path.join(FOLDER, item))
 
-shutil.make_archive(f"klusolvex_felipe_static_{sys.lower()}_x64", 'zip', FOLDER)
+shutil.make_archive(f"klusolvex_felipe_{MODE}_{sys_name.lower()}_x64", 'zip', FOLDER)
 
