@@ -16,7 +16,7 @@ FOLDER = "klusolvex"
 
 
 sys = platform.system()
-os.environ['KLU_AS_STATIC'] = "TRUE"
+
 
 if os.path.exists(FOLDER):
     shutil.rmtree(FOLDER)
@@ -25,7 +25,7 @@ if not os.path.exists('build'):
     os.makedirs('build')
 
 os.chdir("build")
-os.system("cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF ..")
+os.system("cmake -DUSE_SYSTEM_SUITESPARSE=OFF -DUSE_SYSTEM_EIGEN3=OFF -DKLUSOLVE_LIB_TYPE=STATIC ..")
 os.system("cmake --build . --config Release")
 os.chdir("..")
 
